@@ -1,0 +1,4 @@
+﻿node_id,load_profile_type,load_profile_scale_kwh_yr,latitude,longitude,solar_area_m2,battery_limit_kwh,deferable_load_kWh_day,hydro_power_kW
+MG,MG,437503.6,5.89097,37.0732,654,654,110,32.96
+GG,GG,120387.95,5.95382,37.1044,222,222,115,14.13
+QL,QL,97535.3,5.93322,37.1252,229,229,190,11.77

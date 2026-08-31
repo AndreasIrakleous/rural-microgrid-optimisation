@@ -1,0 +1,106 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36" version="29.3.8">
+  <diagram name="Page-1" id="d9rQ_75tZcu36WmLT53R">
+    <mxGraphModel dx="1027" dy="671" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Nzz-c-XP3iPEGTX-7LZ0-1" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=14;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Unconnected Community&amp;nbsp; &amp;nbsp;Graph" vertex="1">
+          <mxGeometry height="60" width="120" x="70" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="Nzz-c-XP3iPEGTX-7LZ0-5" edge="1" parent="1" source="Nzz-c-XP3iPEGTX-7LZ0-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="Nzz-c-XP3iPEGTX-7LZ0-4" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="340" y="210" />
+            </Array>
+            <mxPoint x="340" y="240.05882352941194" as="sourcePoint" />
+            <mxPoint x="413.05882352941194" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Nzz-c-XP3iPEGTX-7LZ0-2" parent="1" style="whiteSpace=wrap;html=1;fontSize=14;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Trials" vertex="1">
+          <mxGeometry height="60" width="120" x="280" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="Nzz-c-XP3iPEGTX-7LZ0-7" edge="1" parent="1" source="Nzz-c-XP3iPEGTX-7LZ0-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="Nzz-c-XP3iPEGTX-7LZ0-6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Nzz-c-XP3iPEGTX-7LZ0-4" parent="1" style="whiteSpace=wrap;html=1;fontSize=14;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Dispatch Strategy" vertex="1">
+          <mxGeometry height="60" width="120" x="420" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="Nzz-c-XP3iPEGTX-7LZ0-6" parent="1" style="whiteSpace=wrap;html=1;fontSize=14;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Cost Function" vertex="1">
+          <mxGeometry height="60" width="120" x="560" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="kzqmyA_kS6feeabFUrzW-1" edge="1" parent="1" source="Nzz-c-XP3iPEGTX-7LZ0-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="kzqmyA_kS6feeabFUrzW-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="468" y="330.0526315789474" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Nzz-c-XP3iPEGTX-7LZ0-8" parent="1" style="whiteSpace=wrap;html=1;fontSize=14;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Split data to good and bad region" vertex="1">
+          <mxGeometry height="60" width="120" x="488" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="Nzz-c-XP3iPEGTX-7LZ0-15" parent="1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" value="Tree Parzen Estimator" vertex="1">
+          <mxGeometry height="30" width="210" x="390" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="Nzz-c-XP3iPEGTX-7LZ0-16" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="700" y="280" as="sourcePoint" />
+            <mxPoint x="810" y="279.6" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Nzz-c-XP3iPEGTX-7LZ0-17" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;align=center;fontSize=14;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Optimal Electrification solution" vertex="1">
+          <mxGeometry height="60" width="120" x="800" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="Nzz-c-XP3iPEGTX-7LZ0-19" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="618" y="390" />
+            </Array>
+            <mxPoint x="618" y="310" as="sourcePoint" />
+            <mxPoint x="608" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Nzz-c-XP3iPEGTX-7LZ0-20" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="180" y="280" as="sourcePoint" />
+            <mxPoint x="260" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kzqmyA_kS6feeabFUrzW-3" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="339.95" y="390" />
+            </Array>
+            <mxPoint x="351.95" y="370" as="sourcePoint" />
+            <mxPoint x="339.95" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kzqmyA_kS6feeabFUrzW-2" parent="1" style="whiteSpace=wrap;html=1;fontSize=14;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Choose from good data" vertex="1">
+          <mxGeometry height="60" width="120" x="352" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="kzqmyA_kS6feeabFUrzW-4" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="260" y="440" as="sourcePoint" />
+            <mxPoint x="260" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kzqmyA_kS6feeabFUrzW-5" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="700" y="440" as="sourcePoint" />
+            <mxPoint x="700" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kzqmyA_kS6feeabFUrzW-7" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="260" y="140" as="sourcePoint" />
+            <mxPoint x="700" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kzqmyA_kS6feeabFUrzW-8" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="260" y="440" as="sourcePoint" />
+            <mxPoint x="700" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,1 @@
+# To treat dispatch_strategy as a package

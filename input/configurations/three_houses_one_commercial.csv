@@ -1,0 +1,5 @@
+node_id,load_profile_type,load_profile_scale_kwh_yr,latitude,longitude,solar_area_m2,solar_irradiance_kwh_m2_day
+H001,house,4500,-1.28333,36.81667,20,5.5
+H002,house,5100,-1.28345,36.8168,25,5.5
+H003,house,3800,-1.2835,36.8165,18,5.5
+C001,commercial,75000,-1.284,36.817,150,5.5
