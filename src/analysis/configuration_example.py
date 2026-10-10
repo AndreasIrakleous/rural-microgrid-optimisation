@@ -4,8 +4,8 @@ Try the optimisation code on two houses only
 
 """
 
-from main import *
-from dispatch_strategy.power_flow_edgeless import *
+from src.main import *
+from src.dispatch_strategy.power_flow_edgeless import *
 import matplotlib.pyplot as plt
 from matplotlib import rc, rcParams
 import networkx as nx
