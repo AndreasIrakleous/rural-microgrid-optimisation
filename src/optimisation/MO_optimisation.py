@@ -34,8 +34,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from datetime import datetime
 from pathlib import Path
 import pandas as pd
-from main import *
-from dispatch_strategy.power_flow_edgeless import *
+from src.main import *
+from src.dispatch_strategy.power_flow_edgeless import *
 import optuna
 from concurrent.futures import ProcessPoolExecutor, as_completed 
 import time

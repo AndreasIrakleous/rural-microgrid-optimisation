@@ -5,7 +5,7 @@ import networkx as nx
 import random
 import os
 import platform
-from main import *
+from src.main import *
 
 class MicrogridSimulator:
     def __init__(self, graph, delta_t, breakrate=0.0, seed=2):

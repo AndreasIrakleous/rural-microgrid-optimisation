@@ -855,7 +855,7 @@ import optuna
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.append(str(BASE_DIR))
 
-from main import Configuration 
+from src.main import Configuration 
 from dispatch_strategy.power_flow_edgeless import MicrogridSimulator
 
 # 2. Define simulation files

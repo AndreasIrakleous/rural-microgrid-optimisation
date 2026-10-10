@@ -34,8 +34,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from datetime import datetime
 from pathlib import Path
 import pandas as pd
-from main import *
-from dispatch_strategy.power_flow_edgeless import *
+from src.main import *
+from src.dispatch_strategy.power_flow_edgeless import *
 import optuna
 from concurrent.futures import ProcessPoolExecutor, as_completed 
 import time
@@ -122,7 +122,7 @@ def cost_function(pv_sum, battery_sum, edge_distance_sum, unmet_sum, unmet_max, 
         "Converter": converter_cost
     }
 
-    economic_cost = pv_cost + battery_cost + edge_cost + hydro_cost+converter_cost + generator_cost + fuel_cost
+    economic_cost = pv_cost + battery_cost + edge_cost + hydro_cost+converter_cost# + generator_cost + fuel_cost
     total_emissions = pv_emissions + battery_emissions + fuel_emissions + gnererator_install_emissions + hydro_emissions + converter_emissions 
     total_cost = w * economic_cost + (1 - w) * total_emissions
 
@@ -177,10 +177,48 @@ def objective(trial, configuration: Configuration, w: float = 1.0):
 
     configuration.bulk_configure_assets(battery_map=battery_map, solar_map=solar_map)
     
-    profiles_df = configuration.get_profiles_dataframe("input/load_profiles/load_profiles_new.csv", irradiance_profile_file="input/PV_profiles_files/case_study_PV.csv")
+    profiles_df = configuration.get_profiles_dataframe("input/load_profiles/case_study_load.csv", irradiance_profile_file="input/PV_profiles_files/case_study_PV.csv")
     print(configuration.edges())
     sim = MicrogridSimulator(configuration, delta_t=1)
     df, A, c,report,summary = sim.run_periodic(profiles_df)
+# Run the simulation
+    # Calculate per-node statistics from the dataframe
+    # We group by 'node_id' and sum the relevant load and unmet columns
+    node_stats = df.groupby('node_id').agg({
+        'unmet_load': 'sum',
+        'unmet_deferable_load': 'sum',
+        'load_profile': 'sum',
+        'met_deferable_load': 'sum'
+    })
+
+    node_unmet_ratios = {}
+    for node_id, row in node_stats.iterrows():
+        # Numerator: Combined unmet critical and deferrable load
+        unmet_sum = row['unmet_load'] + row['unmet_deferable_load']
+        
+        # Denominator: Combined total demand (critical load + actual deferrable demand)
+        # Note: Using met + unmet deferrable load ensures we don't overcount static capacity limits
+        total_demand = row['load_profile'] + row['met_deferable_load'] + row['unmet_deferable_load']
+        
+        ratio = (unmet_sum / total_demand) if total_demand > 0 else 0
+        node_unmet_ratios[str(node_id)] = float(ratio)
+
+    # Identify the worst-performing node for constraint checking
+    max_node_unmet_ratio = max(node_unmet_ratios.values()) if node_unmet_ratios else 0
+
+    # Store attributes in Optuna trial for retrieval in constraints_func
+    trial.set_user_attr("node_unmet_ratios", node_unmet_ratios)
+    trial.set_user_attr("unmet_ratio", max_node_unmet_ratio)
+    
+    # Calculate system-wide unmet ratio for logging
+    total_unmet = node_stats['unmet_load'].sum() + node_stats['unmet_deferable_load'].sum()
+    total_load = node_stats['load_profile'].sum() + node_stats['met_deferable_load'].sum() + node_stats['unmet_deferable_load'].sum()
+    unmet_ratio = (total_unmet / total_load) if total_load > 0 else 0
+    trial.set_user_attr("average_unmet_ratio", unmet_ratio)
+
+
+
+
 
     edge_total = configuration.total_edge_distance()
     pv_total = sum(solar_map.values())
@@ -205,7 +243,7 @@ def objective(trial, configuration: Configuration, w: float = 1.0):
     
     total_load = df['load_profile'].sum()+df["met_deferable_load"].sum()+df["unmet_deferable_load"].sum()
     unmet_ratio = (unmet_total / total_load) if total_load > 0 else 0
-    trial.set_user_attr("unmet_ratio", unmet_ratio)
+    #trial.set_user_attr("average_unmet_ratio", unmet_ratio)
     
     print(f"Trial {trial.number}: Total Cost={total_cost}, Economic Cost={economic_cost}, Total Emissions={total_emissions}, Unmet Ratio={unmet_ratio}")
     return economic_cost#, total_emissions
@@ -216,56 +254,56 @@ def constraints_func(trial):
         return [1.0] 
     return [unmet_ratio - 0.10]
 
-def run_study(config_id: int, config_data, n_trials: int = 300, seed: int = 42, w: float = 1.0, storage_url: str = None, study_name: str = None):
-    configuration = Configuration()
-    configuration.import_nodes_from_csv(config_data)
+# def run_study(config_id: int, config_data, n_trials: int = 300, seed: int = 42, w: float = 1.0, storage_url: str = None, study_name: str = None):
+#     configuration = Configuration()
+#     configuration.import_nodes_from_csv(config_data)
 
-    sampler = optuna.samplers.TPESampler(
-        seed=seed,
-        n_startup_trials=20,
-        constraints_func=constraints_func
-    )
-    if storage_url is not None:
-        study = optuna.create_study(direction="minimize", sampler=sampler, storage=storage_url, study_name=study_name)
-    else:
-        study = optuna.create_study(direction="minimize", sampler=sampler)
+#     sampler = optuna.samplers.TPESampler(
+#         seed=seed,
+#         n_startup_trials=20,
+#         constraints_func=constraints_func
+#     )
+#     if storage_url is not None:
+#         study = optuna.create_study(direction="minimize", sampler=sampler, storage=storage_url, study_name=study_name)
+#     else:
+#         study = optuna.create_study(direction="minimize", sampler=sampler)
 
-    study.optimize(lambda t: objective(t, configuration, w=w), n_trials=n_trials)
+#     study.optimize(lambda t: objective(t, configuration, w=w), n_trials=n_trials)
 
-def parallel_config(all_config, config_data, n_trials: int = 300, max_workers: int = 8):
-    results = []
-    with ProcessPoolExecutor(max_workers=max_workers) as executor: 
-        futures = {
-            executor.submit(run_study, config_id, config_data, n_trials): config_id
-            for config_id in enumerate(all_config)
-        }
-        for future in as_completed(futures): 
-            config_id = futures[future]
-            try:
-                result = future.result()
-                results.append(result)
-            except Exception as e:
-                print(f"Configuration {config_id} generated an exception: {e}")
+# def parallel_config(all_config, config_data, n_trials: int = 300, max_workers: int = 8):
+#     results = []
+#     with ProcessPoolExecutor(max_workers=max_workers) as executor: 
+#         futures = {
+#             executor.submit(run_study, config_id, config_data, n_trials): config_id
+#             for config_id in enumerate(all_config)
+#         }
+#         for future in as_completed(futures): 
+#             config_id = futures[future]
+#             try:
+#                 result = future.result()
+#                 results.append(result)
+#             except Exception as e:
+#                 print(f"Configuration {config_id} generated an exception: {e}")
 
-    final_results = pd.concat(results, ignore_index=True)
-    return final_results
+#     final_results = pd.concat(results, ignore_index=True)
+#     return final_results
 
 #%%
 if __name__ == "__main__":
     config = Configuration()
-    config.import_nodes_from_csv("input/configurations/small_community_new.csv")
+    config.import_nodes_from_csv("input/configurations/Ethiopia_case_study.csv")
     folder_name = "./output/optuna_results"
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    db_filename = f"soo_Ethiopia_Connected_{timestamp}.db"
+    db_filename = f"soo_Ethiopia_UnConnected_{timestamp}.db"
     storage_url = f"sqlite:///{os.path.join(folder_name, db_filename)}"
     study_name = f"study_{timestamp}"
     seed = 42
     start_time = time.time()
     from optuna.samplers import TPESampler
-    sampler = TPESampler(seed=42, n_startup_trials=100)
+    sampler = TPESampler(seed=42, n_startup_trials=100,constraints_func=constraints_func)
     study = optuna.create_study(directions=["minimize"], storage=storage_url, study_name=study_name, sampler=sampler)
 
     study.optimize(lambda t: objective(t, config), n_trials=1000)
