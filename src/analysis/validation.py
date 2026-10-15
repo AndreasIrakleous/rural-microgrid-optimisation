@@ -1,6 +1,6 @@
 
 from src.main import *
-from src.dispatch_strategy.power_flow_edgeless import *
+from dispatch_strategy.simulator import *
 from src.optimisation.optimisation import *
 import matplotlib.pyplot as plt
 from matplotlib import rc, rcParams

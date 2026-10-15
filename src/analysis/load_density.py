@@ -10,7 +10,7 @@ from datetime import datetime
 from pathlib import Path
 import pandas as pd
 from src.main import *
-from src.dispatch_strategy.power_flow_edgeless import *
+from dispatch_strategy.simulator import *
 import optuna
 from concurrent.futures import ProcessPoolExecutor, as_completed 
 import time

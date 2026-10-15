@@ -8,7 +8,7 @@ import plotly
 
 # Define the parent directory as your base
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))#sys.path.append(os.path.abspath(os.path.join(os.getcwd(), os.pardir)))
-from src.dispatch_strategy.power_flow_edgeless import MicrogridSimulator, energy_distribution
+from dispatch_strategy.simulator import MicrogridSimulator, energy_distribution
 from src.main import *
 import plotly.express as px
 from src.optimisation.MO_optimisation import *

@@ -1,0 +1,17 @@
+{
+  "scenario_name": "small_community",
+  "physics": {
+    "deficit_strategy": "diesel",
+    "use_hydro": false
+  },
+  "study": {
+    "objective": "soo",
+    "topologies_to_run": [
+      "isolated",
+      "mst",
+      "optimal"
+    ],
+    "trials": 100,
+    "timeframe_years": 15
+  }
+}   

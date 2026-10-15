@@ -1,0 +1,15 @@
+{
+  "scenario_name": "case_study",
+  "physics": {
+    "deficit_strategy": "unmet_load",
+    "use_hydro": true
+  },
+  "optimization": {
+    "run_soo": true,
+    "run_moo": false
+  },
+  "topologies_to_run": [
+    "isolated",
+    "custom"
+  ]
+}

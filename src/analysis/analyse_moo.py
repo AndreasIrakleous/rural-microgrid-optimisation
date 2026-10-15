@@ -856,7 +856,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.append(str(BASE_DIR))
 
 from src.main import Configuration 
-from dispatch_strategy.power_flow_edgeless import MicrogridSimulator
+from dispatch_strategy.simulator import MicrogridSimulator
 
 # 2. Define simulation files
 config_path = BASE_DIR / "input" / "configurations" / "small_community_new.csv"
